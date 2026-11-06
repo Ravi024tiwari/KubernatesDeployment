@@ -25,8 +25,7 @@ spec:
     spec:
       containers:
         - name: backend
-          # Replace <your-dockerhub-username> with your actual Docker Hub username
-          image: raviashoktiwari/todo-backend:latest
+          image: ravitiwari005/todo-backend:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 5000

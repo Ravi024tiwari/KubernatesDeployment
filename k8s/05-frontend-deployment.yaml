@@ -25,8 +25,8 @@ spec:
     spec:
       containers:
         - name: frontend
-          # Replace <your-dockerhub-username> with your actual Docker Hub username
-          image: raviashoktiwari/todo-frontend:latest
+          image: ravitiwari005/todo-frontend:latest
+
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
