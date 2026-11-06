@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  namespace: todo-production
+  labels:
+    app.kubernetes.io/name: todo-backend
+    app.kubernetes.io/component: backend
+    app.kubernetes.io/part-of: todo-platform
+spec:
+  replicas: 2
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app.kubernetes.io/name: todo-backend
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: todo-backend
+        app.kubernetes.io/component: backend
+    spec:
+      containers:
+        - name: backend
+          # Replace <your-dockerhub-username> with your actual Docker Hub username
+          image: raviashoktiwari/todo-backend:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 5000
+              name: http
+          envFrom:
+            - configMapRef:
+                name: todo-config
+            - secretRef:
+                name: todo-secrets
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "300m"
+              memory: "256Mi"
+          # Liveness probe restarts container if the process freezes
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 15
+            periodSeconds: 10
+            timeoutSeconds: 5
+            failureThreshold: 3
+          # Readiness probe ensures traffic is routed only when DB is connected
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 2
