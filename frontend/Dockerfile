@@ -9,9 +9,14 @@ FROM node:20-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
+
+ARG NEXT_PUBLIC_API_URL=http://localhost:5000/api
+ENV NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}
+
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV NODE_ENV=production
 ENV STANDALONE=true
+
 RUN npm run build
 
 # Stage 3: Minimal Production Runner Image (~120MB)
