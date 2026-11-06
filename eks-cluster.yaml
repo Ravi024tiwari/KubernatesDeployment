@@ -4,7 +4,7 @@ kind: ClusterConfig
 metadata:
   name: todo-eks-cluster
   region: ap-south-1 # Mumbai (or change to us-east-1)
-  version: "1.30"
+  version: "1.31"
 
 # Enables IAM Roles for Service Accounts (IRSA) - required for AWS ALB Controller
 iam:
