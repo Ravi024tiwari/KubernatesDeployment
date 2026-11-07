@@ -72,7 +72,7 @@ export async function apiClient<T>(
     // Friendly message when backend is offline or unreachable
     if (error instanceof TypeError && error.message.includes("fetch")) {
       throw new ApiError(
-        `Cannot connect to backend API (${env.API_URL}). Please verify your backend server is running on port 5000.`,
+        `Cannot connect to backend API (${env.API_URL}). Please verify your backend service is running and accessible.`,
         503
       );
     }

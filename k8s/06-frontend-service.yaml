@@ -3,6 +3,8 @@ kind: Service
 metadata:
   name: frontend-service
   namespace: todo-production
+  annotations:
+    alb.ingress.kubernetes.io/healthcheck-path: /
   labels:
     app.kubernetes.io/name: todo-frontend
     app.kubernetes.io/component: frontend

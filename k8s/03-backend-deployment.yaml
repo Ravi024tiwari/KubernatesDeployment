@@ -30,6 +30,9 @@ spec:
           ports:
             - containerPort: 5000
               name: http
+          env:
+            - name: PORT
+              value: "5000"
           envFrom:
             - configMapRef:
                 name: todo-config

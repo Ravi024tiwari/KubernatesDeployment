@@ -26,11 +26,15 @@ spec:
       containers:
         - name: frontend
           image: ravitiwari005/todo-frontend:latest
-
           imagePullPolicy: Always
           ports:
             - containerPort: 3000
               name: http
+          env:
+            - name: PORT
+              value: "3000"
+            - name: HOSTNAME
+              value: "0.0.0.0"
           envFrom:
             - configMapRef:
                 name: todo-config
@@ -39,13 +43,13 @@ spec:
               cpu: "100m"
               memory: "150Mi"
             limits:
-              cpu: "300m"
-              memory: "300Mi"
+              cpu: "500m"
+              memory: "512Mi"
           livenessProbe:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 20
+            initialDelaySeconds: 25
             periodSeconds: 15
             timeoutSeconds: 5
             failureThreshold: 3
@@ -53,7 +57,7 @@ spec:
             httpGet:
               path: /
               port: 3000
-            initialDelaySeconds: 10
+            initialDelaySeconds: 15
             periodSeconds: 5
             timeoutSeconds: 3
             failureThreshold: 2

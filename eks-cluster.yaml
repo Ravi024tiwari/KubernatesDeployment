@@ -13,7 +13,7 @@ iam:
 # Cost-optimized managed node group for learning & production testing
 managedNodeGroups:
   - name: todo-workers
-    instanceType: t3.medium
+    instanceType: t3.small
     minSize: 1
     maxSize: 3
     desiredCapacity: 2
